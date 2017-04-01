@@ -15,6 +15,7 @@
 		3976E9AA1E901E5A0055652F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3976E9A91E901E5A0055652F /* Constants.swift */; };
 		3976E9AC1E9022F80055652F /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3976E9AB1E9022F80055652F /* MovieTableViewCell.swift */; };
 		3976E9AE1E9026850055652F /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3976E9AD1E9026850055652F /* Movie.swift */; };
+		3976E9B01E9031050055652F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3976E9AF1E9031050055652F /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		3976E9A91E901E5A0055652F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3976E9AB1E9022F80055652F /* MovieTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		3976E9AD1E9026850055652F /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		3976E9AF1E9031050055652F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,11 +66,12 @@
 				3976E9A91E901E5A0055652F /* Constants.swift */,
 				3976E9AB1E9022F80055652F /* MovieTableViewCell.swift */,
 				3976E9991E90171A0055652F /* MoviesViewController.swift */,
+				3976E9AF1E9031050055652F /* DataManager.swift */,
+				3976E9AD1E9026850055652F /* Movie.swift */,
 				3976E99B1E90171A0055652F /* Main.storyboard */,
 				3976E99E1E90171A0055652F /* Assets.xcassets */,
 				3976E9A01E90171A0055652F /* LaunchScreen.storyboard */,
 				3976E9A31E90171A0055652F /* Info.plist */,
-				3976E9AD1E9026850055652F /* Movie.swift */,
 			);
 			path = Flicks;
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3976E99A1E90171A0055652F /* MoviesViewController.swift in Sources */,
+				3976E9B01E9031050055652F /* DataManager.swift in Sources */,
 				3976E9981E90171A0055652F /* AppDelegate.swift in Sources */,
 				3976E9AC1E9022F80055652F /* MovieTableViewCell.swift in Sources */,
 				3976E9AA1E901E5A0055652F /* Constants.swift in Sources */,
