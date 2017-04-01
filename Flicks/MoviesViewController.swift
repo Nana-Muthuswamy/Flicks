@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 
 class MoviesViewController: UITableViewController {
 
@@ -19,7 +20,26 @@ class MoviesViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
 
         // Load movies
-        movies = DataManager.shared.getMovies()
+        DataManager.shared.fetchNowPlayingMovies {[weak weakSelf = self] (result) in
+
+            switch result {
+
+            case .success(let fetchedMovieList):
+                weakSelf?.movies = fetchedMovieList
+                weakSelf?.tableView.reloadData()
+
+            case .failure(let error):
+
+                switch error {
+                case .networkFailure(let reason):
+                    print("Network Failure: \(reason)")
+                case .validationFailure(let reason):
+                    print("Validation Failure: \(reason)")
+                case .dataPaserFailure:
+                    print("Unable to parse the TMDb API response")
+                }
+            }
+        }
     }
 
     // MARK: UITableViewDataSource
@@ -36,6 +56,10 @@ class MoviesViewController: UITableViewController {
 
         tableCell.title.text = movie.title
         tableCell.overview.text = movie.overview
+
+        if let imageURL = movie.posterImageURL {
+            tableCell.poster.setImageWith(imageURL)
+        }
 
         return tableCell
     }

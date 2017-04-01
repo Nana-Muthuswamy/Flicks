@@ -6,11 +6,21 @@
 //  Copyright © 2017 Nana. All rights reserved.
 //
 
+import Foundation
+
 struct Movie {
     
     let title: String
     let overview: String
     let posterPath: String
+
+    var posterImageURL: URL? {
+        if self.posterPath.characters.count > 0, let finalURL = URL(string: posterBaseUrl + self.posterPath) {
+                return finalURL
+        } else {
+            return nil
+        }
+    }
 
     init(title: String?, overview: String?, posterPath: String?) {
 
@@ -31,5 +41,10 @@ struct Movie {
         } else {
             self.posterPath = ""
         }
+    }
+
+    init(dictionary: Dictionary<String, Any>) {
+
+        self.init(title: dictionary["title"] as? String, overview: dictionary["overview"] as? String, posterPath: dictionary["poster_path"] as? String)
     }
 }
