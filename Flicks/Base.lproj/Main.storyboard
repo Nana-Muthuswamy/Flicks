@@ -42,7 +42,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYf-OY-L7c" userLabel="Overview">
-                                            <rect key="frame" x="123" y="49" width="236" height="82"/>
+                                            <rect key="frame" x="123" y="37" width="236" height="94"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -57,7 +57,7 @@
                                         <constraint firstItem="FCT-kf-36Y" firstAttribute="leading" secondItem="KXH-1F-xbd" secondAttribute="trailing" constant="8" id="VRQ-cE-BRo"/>
                                         <constraint firstItem="KXH-1F-xbd" firstAttribute="leading" secondItem="YUg-Iu-3V7" secondAttribute="leadingMargin" constant="7" id="cUf-R1-06F"/>
                                         <constraint firstItem="WYf-OY-L7c" firstAttribute="trailing" secondItem="FCT-kf-36Y" secondAttribute="trailing" id="uSB-1S-NnK"/>
-                                        <constraint firstItem="WYf-OY-L7c" firstAttribute="top" secondItem="FCT-kf-36Y" secondAttribute="bottom" constant="20" id="wUy-0i-nKq"/>
+                                        <constraint firstItem="WYf-OY-L7c" firstAttribute="top" secondItem="FCT-kf-36Y" secondAttribute="bottom" constant="8" symbolic="YES" id="wUy-0i-nKq"/>
                                         <constraint firstItem="KXH-1F-xbd" firstAttribute="top" secondItem="YUg-Iu-3V7" secondAttribute="topMargin" id="ydP-9w-Zi0"/>
                                     </constraints>
                                 </tableViewCellContentView>

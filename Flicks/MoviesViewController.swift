@@ -63,6 +63,12 @@ class MoviesViewController: UITableViewController {
 
         return tableCell
     }
-    
+
+    // MARK: UITableViewDelegate
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // De-select the tapped movie row
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 

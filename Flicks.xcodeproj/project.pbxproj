@@ -69,18 +69,58 @@
 		3976E9961E90171A0055652F /* Flicks */ = {
 			isa = PBXGroup;
 			children = (
-				3976E9971E90171A0055652F /* AppDelegate.swift */,
-				3976E9A91E901E5A0055652F /* Constants.swift */,
-				3976E9AB1E9022F80055652F /* MovieTableViewCell.swift */,
-				3976E9991E90171A0055652F /* MoviesViewController.swift */,
-				3976E9AF1E9031050055652F /* DataManager.swift */,
-				3976E9AD1E9026850055652F /* Movie.swift */,
-				3976E99B1E90171A0055652F /* Main.storyboard */,
-				3976E99E1E90171A0055652F /* Assets.xcassets */,
-				3976E9A01E90171A0055652F /* LaunchScreen.storyboard */,
-				3976E9A31E90171A0055652F /* Info.plist */,
+				39D38DF71E9073EC00986AB0 /* Common */,
+				39D38DF81E9073F100986AB0 /* Model */,
+				39D38DFA1E90740000986AB0 /* Controller */,
+				39D38DF91E9073FB00986AB0 /* Views */,
+				39D38DFB1E90744100986AB0 /* Support */,
 			);
 			path = Flicks;
+			sourceTree = "<group>";
+		};
+		39D38DF71E9073EC00986AB0 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3976E9971E90171A0055652F /* AppDelegate.swift */,
+				3976E9A91E901E5A0055652F /* Constants.swift */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		39D38DF81E9073F100986AB0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3976E9AF1E9031050055652F /* DataManager.swift */,
+				3976E9AD1E9026850055652F /* Movie.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		39D38DF91E9073FB00986AB0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3976E99B1E90171A0055652F /* Main.storyboard */,
+				3976E9A01E90171A0055652F /* LaunchScreen.storyboard */,
+				3976E9AB1E9022F80055652F /* MovieTableViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		39D38DFA1E90740000986AB0 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3976E9991E90171A0055652F /* MoviesViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		39D38DFB1E90744100986AB0 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				3976E99E1E90171A0055652F /* Assets.xcassets */,
+				3976E9A31E90171A0055652F /* Info.plist */,
+			);
+			name = Support;
 			sourceTree = "<group>";
 		};
 		4E984005F0A2FF0F1D36F04E /* Pods */ = {
