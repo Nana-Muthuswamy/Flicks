@@ -58,44 +58,49 @@ class DataManager {
             with: request as URLRequest,
             completionHandler: {[weak weakSelf = self] (data, response, error) in
 
-                    if let data = data, let responseDictionary = try! JSONSerialization.jsonObject(with: data, options:[]) as? Dictionary<String,Any> {
+                if error != nil {
 
-                        print("responseDictionary: \(responseDictionary)")
-                        
-                        let httpResponse = response as! HTTPURLResponse
+                    let errorDesc = error?.localizedDescription ?? "Network Error"
+                    completion(DataFetchResult.failure(DataFetchError.networkFailure(errorDesc)))
 
-                        if httpResponse.statusCode == 200 {
+                } else if let data = data, let responseDictionary = try! JSONSerialization.jsonObject(with: data, options:[]) as? Dictionary<String,Any> {
 
-                            if let movieList = responseDictionary["results"] as? [Dictionary<String, Any>] {
+                    print("responseDictionary: \(responseDictionary)")
+                    
+                    let httpResponse = response as! HTTPURLResponse
 
-                                weakSelf?.fetchedMovies.removeAll()
+                    if httpResponse.statusCode == 200 {
 
-                                for movieDict in movieList {
-                                    weakSelf?.fetchedMovies.append(Movie(dictionary: movieDict))
-                                }
+                        if let movieList = responseDictionary["results"] as? [Dictionary<String, Any>] {
+
+                            weakSelf?.fetchedMovies.removeAll()
+
+                            for movieDict in movieList {
+                                weakSelf?.fetchedMovies.append(Movie(dictionary: movieDict))
                             }
+                        }
 
-                            completion(DataFetchResult.success((weakSelf?.fetchedMovies ?? [Movie]())))
+                        completion(DataFetchResult.success((weakSelf?.fetchedMovies ?? [Movie]())))
 
-                        } else if httpResponse.statusCode == 401 {
+                    } else if httpResponse.statusCode == 401 {
 
-                            if let validationErrorMsg = responseDictionary["status_message"] as? String {
+                        if let validationErrorMsg = responseDictionary["status_message"] as? String {
 
-                                completion(DataFetchResult.failure(DataFetchError.validationFailure(validationErrorMsg)))
-                            }
-
-                        } else {
-
-                            let errorDesc = error?.localizedDescription ?? "Network Error"
-                            completion(DataFetchResult.failure(DataFetchError.networkFailure(errorDesc)))
+                            completion(DataFetchResult.failure(DataFetchError.validationFailure(validationErrorMsg)))
                         }
 
                     } else {
 
-                        completion(DataFetchResult.failure(DataFetchError.dataPaserFailure))
+                        let errorDesc = error?.localizedDescription ?? "Network Error"
+                        completion(DataFetchResult.failure(DataFetchError.networkFailure(errorDesc)))
                     }
 
-                })
+                } else {
+
+                    completion(DataFetchResult.failure(DataFetchError.dataPaserFailure))
+                }
+
+            })
 
         Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { (_) in
             task.resume()

@@ -13,6 +13,7 @@ import MBProgressHUD
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var errorView: UIView!
 
     private var movies = [Movie]()
 
@@ -33,6 +34,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     // MARK: Data Load
 
     func loadData(sender: AnyObject) {
+
+        // Hide the network error view, if required
+        errorView.isHidden = true
 
         // Display progress indicator HUD if the load is not triggered by pull to refresh action
         if (sender as? UIRefreshControl) == nil {
@@ -59,10 +63,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             case .failure(let error):
 
                 switch error {
+
                 case .networkFailure(let reason):
                     print("Network Failure: \(reason)")
+                    weakSelf?.errorView.isHidden = false
+
                 case .validationFailure(let reason):
                     print("Validation Failure: \(reason)")
+
                 case .dataPaserFailure:
                     print("Unable to parse the TMDb API response")
                 }
