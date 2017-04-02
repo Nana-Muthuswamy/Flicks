@@ -65,6 +65,7 @@
                                     <outlet property="overview" destination="WYf-OY-L7c" id="OWT-xP-YV3"/>
                                     <outlet property="poster" destination="KXH-1F-xbd" id="t1l-NG-8k2"/>
                                     <outlet property="title" destination="FCT-kf-36Y" id="dR1-9Z-aBy"/>
+                                    <segue destination="XB0-y2-A2s" kind="show" identifier="MovieDetails" id="Eo8-mj-e3U"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -78,6 +79,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cH3-QO-3Jg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="647.20000000000005" y="135.38230884557723"/>
+        </scene>
+        <!--Movie Details View Controller-->
+        <scene sceneID="EeH-g3-l8O">
+            <objects>
+                <viewController restorationIdentifier="MovieDetailsViewController" storyboardIdentifier="MovieDetailsViewController" id="XB0-y2-A2s" customClass="MovieDetailsViewController" customModule="Flicks" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9tj-lV-Spa"/>
+                        <viewControllerLayoutGuide type="bottom" id="4ta-h8-Ugc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eiS-0H-6iy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0r0-uy-tWs" userLabel="Poster">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0r0-uy-tWs" firstAttribute="top" secondItem="9tj-lV-Spa" secondAttribute="bottom" id="DfL-f8-AS9"/>
+                            <constraint firstItem="0r0-uy-tWs" firstAttribute="leading" secondItem="eiS-0H-6iy" secondAttribute="leading" id="Gem-3b-EOD"/>
+                            <constraint firstAttribute="trailing" secondItem="0r0-uy-tWs" secondAttribute="trailing" id="UIK-ls-2zL"/>
+                            <constraint firstItem="4ta-h8-Ugc" firstAttribute="top" secondItem="0r0-uy-tWs" secondAttribute="bottom" id="qKq-IE-r8c"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="poster" destination="0r0-uy-tWs" id="zfj-hG-agX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ADc-X7-cIy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1527.2" y="125.4872563718141"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tJM-tD-gF8">

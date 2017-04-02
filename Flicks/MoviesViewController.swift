@@ -70,5 +70,17 @@ class MoviesViewController: UITableViewController {
         // De-select the tapped movie row
         tableView.deselectRow(at: indexPath, animated: true)
     }
+
+    // MARK: Navigation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "MovieDetails" {
+            let destination = segue.destination as! MovieDetailsViewController
+            let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
+
+            destination.movie = movies[indexPath.row]
+        }
+    }
 }
 
