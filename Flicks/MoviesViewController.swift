@@ -17,10 +17,26 @@ class MoviesViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
 
-        // Load movies
+        // Setup and add UIRefreshControl
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(loadData(sender:)), for: .valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
+
+        // Load Movies list
+        loadData(sender: self)
+    }
+
+    // MARK: Data Load
+
+    func loadData(sender: AnyObject) {
+
         DataManager.shared.fetchNowPlayingMovies {[weak weakSelf = self] (result) in
+
+            // If data was loaded by pull to refresh action, mark end refreshing
+            if let refreshControl = sender as? UIRefreshControl {
+                refreshControl.endRefreshing()
+            }
 
             switch result {
 
