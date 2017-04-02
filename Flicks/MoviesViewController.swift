@@ -94,7 +94,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableCell.overview.text = movie.overview
 
         if let imageURL = movie.posterThumbnailImageURL {
-//            tableCell.poster.setImageWith(imageURL)
 
             let request = URLRequest(url: imageURL)
 

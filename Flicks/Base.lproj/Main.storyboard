@@ -26,10 +26,10 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5lf-jk-xqs" id="HAM-hv-8a7">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="139"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="139.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MovieThumbnail" id="4tN-je-vjd">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="4tN-je-vjd">
                                                     <rect key="frame" x="15" y="8" width="100" height="123"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
@@ -186,9 +186,6 @@
             <point key="canvasLocation" x="-182.5" y="150.5"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="MovieThumbnail" width="600" height="600"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
