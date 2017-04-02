@@ -15,8 +15,16 @@ struct Movie {
     let posterPath: String
 
     var posterImageURL: URL? {
-        if self.posterPath.characters.count > 0, let finalURL = URL(string: posterBaseUrl + self.posterPath) {
+        if self.posterPath.characters.count > 0, let finalURL = URL(string: originalPosterBaseUrl + self.posterPath) {
                 return finalURL
+        } else {
+            return nil
+        }
+    }
+
+    var posterThumbnailImageURL: URL? {
+        if self.posterPath.characters.count > 0, let finalURL = URL(string: posterBaseUrl + self.posterPath) {
+            return finalURL
         } else {
             return nil
         }

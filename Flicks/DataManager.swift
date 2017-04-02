@@ -68,6 +68,8 @@ class DataManager {
 
                             if let movieList = responseDictionary["results"] as? [Dictionary<String, Any>] {
 
+                                weakSelf?.fetchedMovies.removeAll()
+
                                 for movieDict in movieList {
                                     weakSelf?.fetchedMovies.append(Movie(dictionary: movieDict))
                                 }

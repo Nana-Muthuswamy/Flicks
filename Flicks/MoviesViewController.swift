@@ -36,7 +36,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
         // Display progress indicator HUD if the load is not triggered by pull to refresh action
         if (sender as? UIRefreshControl) == nil {
-            MBProgressHUD.showAdded(to: self.view, animated: true)
+            let hudView = MBProgressHUD.showAdded(to: self.view, animated: true)
+            hudView.label.text = "Loading Movies..."
         }
 
         DataManager.shared.fetchNowPlayingMovies {[weak weakSelf = self] (result) in
@@ -84,7 +85,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableCell.title.text = movie.title
         tableCell.overview.text = movie.overview
 
-        if let imageURL = movie.posterImageURL {
+        if let imageURL = movie.posterThumbnailImageURL {
             tableCell.poster.setImageWith(imageURL)
         }
 
