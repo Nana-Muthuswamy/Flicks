@@ -84,7 +84,7 @@ class DataManager {
 
                         } else {
 
-                            let errorDesc = error?.localizedDescription ?? "Unable to invoke TMDb API"
+                            let errorDesc = error?.localizedDescription ?? "Network Error"
                             completion(DataFetchResult.failure(DataFetchError.networkFailure(errorDesc)))
                         }
 

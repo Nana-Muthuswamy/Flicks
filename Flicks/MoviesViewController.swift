@@ -10,7 +10,9 @@ import UIKit
 import AFNetworking
 import MBProgressHUD
 
-class MoviesViewController: UITableViewController {
+class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    @IBOutlet weak var tableView: UITableView!
 
     private var movies = [Movie]()
 
@@ -69,11 +71,11 @@ class MoviesViewController: UITableViewController {
 
     // MARK: UITableViewDataSource
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let tableCell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as! MovieTableViewCell
 
@@ -91,7 +93,7 @@ class MoviesViewController: UITableViewController {
 
     // MARK: UITableViewDelegate
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // De-select the tapped movie row
         tableView.deselectRow(at: indexPath, animated: true)
     }
