@@ -95,7 +95,9 @@ class DataManager {
 
                 })
 
-        task.resume()
+        Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { (_) in
+            task.resume()
+        }
     }
 
     // Gets more movies by fetching next page from remote TMDb API

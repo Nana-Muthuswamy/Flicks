@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import MBProgressHUD
 
 class MoviesViewController: UITableViewController {
 
@@ -31,11 +32,19 @@ class MoviesViewController: UITableViewController {
 
     func loadData(sender: AnyObject) {
 
+        // Display progress indicator HUD if the load is not triggered by pull to refresh action
+        if (sender as? UIRefreshControl) == nil {
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+        }
+
         DataManager.shared.fetchNowPlayingMovies {[weak weakSelf = self] (result) in
 
-            // If data was loaded by pull to refresh action, mark end refreshing
             if let refreshControl = sender as? UIRefreshControl {
+                // If data was loaded by pull to refresh action, mark end refreshing
                 refreshControl.endRefreshing()
+            } else {
+                // In other cases hide the progress indicator HUD
+                MBProgressHUD.hide(for: self.view, animated: true)
             }
 
             switch result {
