@@ -94,7 +94,29 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableCell.overview.text = movie.overview
 
         if let imageURL = movie.posterThumbnailImageURL {
-            tableCell.poster.setImageWith(imageURL)
+//            tableCell.poster.setImageWith(imageURL)
+
+            let request = URLRequest(url: imageURL)
+
+            tableCell.poster.setImageWith(request, placeholderImage: nil, success: {(request, response, image) in
+
+                // Response will not be nil if image is downloaded from network (as per AFNetworking docs), provide fade in animation
+                if response != nil {
+                    tableCell.poster.alpha = 0.0
+                    tableCell.poster.image = image
+
+                    UIView.animate(withDuration: 0.5, animations: { 
+                        tableCell.poster.alpha = 1.0
+                    })
+
+                } else { // If its retrieved from cache, just load it
+                    tableCell.poster.image = image
+                }
+
+            }, failure: { (request, response, error) in
+                // On failure to load image from network or cache, just load the default thumbnail
+                tableCell.poster.image = UIImage(named: "MovieThumbnail")
+            })
         }
 
         return tableCell
