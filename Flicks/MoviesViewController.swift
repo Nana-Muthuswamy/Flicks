@@ -10,17 +10,47 @@ import UIKit
 import AFNetworking
 import MBProgressHUD
 
-class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MoviesViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var errorView: UIView!
 
-    private var movies = [Movie]()
+    fileprivate var searchController: UISearchController!
+
+    fileprivate var movies = [Movie]() {
+        didSet {
+            filteredMovies = movies
+        }
+    }
+
+    fileprivate var filteredMovies = [Movie]() {
+        didSet {
+            DispatchQueue.main.async {[weak weakSelf = self] in
+                weakSelf?.tableView.reloadData()
+            }
+        }
+    }
 
     // MARK: ViewController Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Setup UISearchController
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = true
+
+        // Setup Searchbar
+        searchController.searchBar.placeholder = "Filter Movies"
+        searchController.searchBar.sizeToFit()
+        tableView.tableHeaderView = searchController.searchBar
+
+        // Setup Presentation Context
+        self.definesPresentationContext = true
 
         // Setup and add UIRefreshControl
         let refreshControl = UIRefreshControl()
@@ -37,6 +67,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
         // Hide the network error view, if required
         errorView.isHidden = true
+
+        // Inactivate SearchController, if required
+        self.searchController.isActive = false
 
         // Display progress indicator HUD if the load is not triggered by pull to refresh action
         if (sender as? UIRefreshControl) == nil {
@@ -58,7 +91,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
             case .success(let fetchedMovieList):
                 weakSelf?.movies = fetchedMovieList
-                weakSelf?.tableView.reloadData()
 
             case .failure(let error):
 
@@ -78,17 +110,32 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
 
+    // MARK: Navigation
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "MovieDetails" {
+            let destination = segue.destination as! MovieDetailsViewController
+            let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
+
+            destination.movie = filteredMovies[indexPath.row]
+        }
+    }
+}
+
+extension MoviesViewController: UITableViewDataSource, UITableViewDelegate {
+
     // MARK: UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return filteredMovies.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let tableCell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as! MovieTableViewCell
 
-        let movie = movies[indexPath.row]
+        let movie = filteredMovies[indexPath.row]
 
         tableCell.title.text = movie.title
         tableCell.overview.text = movie.overview
@@ -104,7 +151,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                     tableCell.poster.alpha = 0.0
                     tableCell.poster.image = image
 
-                    UIView.animate(withDuration: 0.5, animations: { 
+                    UIView.animate(withDuration: 0.5, animations: {
                         tableCell.poster.alpha = 1.0
                     })
 
@@ -127,16 +174,18 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         // De-select the tapped movie row
         tableView.deselectRow(at: indexPath, animated: true)
     }
+}
 
-    // MARK: Navigation
+extension MoviesViewController: UISearchResultsUpdating {
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    func updateSearchResults(for searchController: UISearchController) {
 
-        if segue.identifier == "MovieDetails" {
-            let destination = segue.destination as! MovieDetailsViewController
-            let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
-
-            destination.movie = movies[indexPath.row]
+        if let searchText = searchController.searchBar.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines), searchText.characters.count > 0 {
+            filteredMovies = movies.filter({ (element) in
+                return element.title.lowercased().contains(searchText)
+            })
+        } else {
+            filteredMovies = movies
         }
     }
 }

@@ -2,7 +2,7 @@
 
 Flicks is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: 6 hours spent in total
+Time spent: 7 hours spent in total
 
 ## User Stories
 
@@ -18,7 +18,7 @@ The following **optional** features are implemented:
 
 - [ ] Add a tab bar for **Now Playing** and **Top Rated** movies.
 - [ ] Implement segmented control to switch between list view and grid view.
-- [ ] Add a search bar.
+- [√] Add a search bar.
 - [√] All images fade in.
 - [√] For the large poster, load the low-res image first, switch to high-res when complete.
 - [ ] Customize the highlight and selection effect of the cell.
@@ -39,6 +39,8 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
+
+I had a tough time implementing Scroll View with Auto layouts. Though this assignment doesn't need Auto layout, I thought of making the app compatible on all devices. However, I wasn't able to resolve "Ambiguous Scroll Content Height" via Auto layout. I completed the assignment by disabling Auto layout and was able to get the scroll view done for scrolling movie info over movie poster image.
 
 ## License
 

@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Movies View Controller-->
+        <!--Movies-->
         <scene sceneID="FHS-vn-NFT">
             <objects>
                 <viewController restorationIdentifier="MoviesViewController" storyboardIdentifier="MoviesViewController" id="IwE-pw-oj7" customClass="MoviesViewController" customModule="Flicks" customModuleProvider="target" sceneMemberID="viewController">
@@ -86,7 +86,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="EaG-cx-POX"/>
+                    <navigationItem key="navigationItem" title="Movies" id="EaG-cx-POX"/>
                     <connections>
                         <outlet property="errorView" destination="p9V-AH-HEK" id="Gln-O7-Wgl"/>
                         <outlet property="tableView" destination="aKE-Jf-YmN" id="yru-vN-a4k"/>
@@ -96,7 +96,7 @@
             </objects>
             <point key="canvasLocation" x="380.5" y="138.5"/>
         </scene>
-        <!--Movie Details View Controller-->
+        <!--Movie Info-->
         <scene sceneID="EeH-g3-l8O">
             <objects>
                 <viewController restorationIdentifier="MovieDetailsViewController" storyboardIdentifier="MovieDetailsViewController" id="XB0-y2-A2s" customClass="MovieDetailsViewController" customModule="Flicks" customModuleProvider="target" sceneMemberID="viewController">
@@ -152,7 +152,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="YRn-7H-JDg"/>
+                    <navigationItem key="navigationItem" title="Movie Info" id="YRn-7H-JDg"/>
                     <connections>
                         <outlet property="detailsView" destination="b4T-Of-nJN" id="d2K-QZ-ndG"/>
                         <outlet property="overviewLabel" destination="lEf-EC-uZq" id="uMS-gh-ctQ"/>
