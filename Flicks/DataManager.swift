@@ -8,15 +8,78 @@
 
 import Foundation
 
-enum DataFetchResult {
-    case success([Movie])
-    case failure(DataFetchError)
+// Generic enum that holds the result of any (preferrably, data related) operations
+enum Result<Value> {
+    // Success case holds a generic type value associated
+    case success(Value)
+    // Failure case holds DataError associated
+    case failure(DataError)
+
+    /* Convenient computed properties for quick checks and extraction of result content */
+
+    // For checking whether the result is success
+    var isSuccess: Bool {
+        switch self {
+        case .success(_):
+            return true
+        case .failure(_):
+            return false
+        }
+    }
+
+    // For checking whether the result is failure
+    var isFailure: Bool {
+        switch self {
+        case .success(_):
+            return false
+        case .failure(_):
+            return true
+        }
+    }
+
+    // For extracting the value associated with the result
+    var value: Value? {
+        switch self {
+        case .success(let value):
+            return value
+        case .failure(_):
+            return nil
+        }
+    }
+
+    // For extracting the error associated with the result
+    var error: DataError? {
+        switch self {
+        case .success(_):
+            return nil
+        case .failure(let error):
+            return error
+        }
+    }
+
+
 }
 
-enum DataFetchError: Error {
-    case networkFailure(String)
-    case validationFailure(String)
-    case dataPaserFailure
+// Enum to hold possible error variants while dealing with data
+enum DataError: Error {
+    // This case highlights incompatible or unexpected data than from the desired version
+    case invalidData
+    // This case highlights absence of data when its desired to be present
+    case dataNotAvailable
+    // This is the default case that can represent any error with some reasonable explanation, if any
+    case other(String?)
+
+    // Convenience computed property to express the error reason for all possible scenarios
+    var localizedDescription: String {
+        switch self {
+        case .invalidData:
+            return "Unexpected or incompatible data."
+        case .dataNotAvailable:
+            return "Data not available."
+        case .other(let reason):
+            return reason ?? "Unknown error."
+        }
+    }
 }
 
 class DataManager {
@@ -43,7 +106,7 @@ class DataManager {
     // MARK: Data Mart APIs
 
     // Loads movies either from local storage. If not present, then from remote TMDb API
-    func fetchNowPlayingMovies(completion: @escaping (DataFetchResult) -> Void) {
+    func fetchNowPlayingMovies(completion: @escaping (Result<[Movie]>) -> Void) {
 
         let fullServicePath = "\(ServicePathNowPlayingMovies)?api_key=\(TMDbAPIKey)&language=en-US&page=\(pageToFetch)&region=US"
 
@@ -61,7 +124,7 @@ class DataManager {
                 if error != nil {
 
                     let errorDesc = error?.localizedDescription ?? "Network Error"
-                    completion(DataFetchResult.failure(DataFetchError.networkFailure(errorDesc)))
+                    completion(Result.failure(DataError.other(errorDesc)))
 
                 } else if let data = data, let responseDictionary = try! JSONSerialization.jsonObject(with: data, options:[]) as? Dictionary<String,Any> {
 
@@ -80,24 +143,28 @@ class DataManager {
                             }
                         }
 
-                        completion(DataFetchResult.success((weakSelf?.fetchedMovies ?? [Movie]())))
+                        if let movies = weakSelf?.fetchedMovies {
+                            completion(Result.success(movies))
+                        } else {
+                            completion(Result.failure(DataError.dataNotAvailable))
+                        }
 
                     } else if httpResponse.statusCode == 401 {
 
                         if let validationErrorMsg = responseDictionary["status_message"] as? String {
 
-                            completion(DataFetchResult.failure(DataFetchError.validationFailure(validationErrorMsg)))
+                            completion(Result.failure(DataError.other(validationErrorMsg)))
                         }
 
                     } else {
 
                         let errorDesc = error?.localizedDescription ?? "Network Error"
-                        completion(DataFetchResult.failure(DataFetchError.networkFailure(errorDesc)))
+                        completion(Result.failure(DataError.other(errorDesc)))
                     }
 
                 } else {
 
-                    completion(DataFetchResult.failure(DataFetchError.dataPaserFailure))
+                    completion(Result.failure(DataError.invalidData))
                 }
 
             })

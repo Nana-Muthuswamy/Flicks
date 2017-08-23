@@ -96,15 +96,12 @@ class MoviesViewController: UIViewController {
 
                 switch error {
 
-                case .networkFailure(let reason):
-                    print("Network Failure: \(reason)")
+                case .other(_):
+                    print("Failure Reason: \(error.localizedDescription)")
                     weakSelf?.errorView.isHidden = false
 
-                case .validationFailure(let reason):
-                    print("Validation Failure: \(reason)")
-
-                case .dataPaserFailure:
-                    print("Unable to parse the TMDb API response")
+                default:
+                    print("Failure Reason: \(error.localizedDescription)")
                 }
             }
         }
